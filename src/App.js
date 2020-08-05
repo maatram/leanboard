@@ -1,24 +1,19 @@
 import React from 'react';
-import logo from './logo.svg';
+import Button from '@material-ui/core/Button';
 import './App.css';
-
+import TodoForm from './TodoForm';
+/* global chrome */
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Button variant="contained" color="primary" onClick={() => {
+        chrome.tabs.getSelected(tab => {
+          chrome.tabs.update(tab.id, { url: 'chrome-search://local-ntp/local-ntp.html', });
+        });
+      }}>
+        Chrome Tab
+        </Button>
+      <TodoForm></TodoForm>
     </div>
   );
 }
