@@ -2,6 +2,7 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import './App.css';
 import TodoForm from './TodoForm';
+import TodoList from './TodoList';
 /* global chrome */
 function App() {
   return (
@@ -13,7 +14,8 @@ function App() {
       }}>
         Chrome Tab
         </Button>
-      <TodoForm></TodoForm>
+      <TodoForm/>
+      <TodoList/>
     </div>
   );
 }
