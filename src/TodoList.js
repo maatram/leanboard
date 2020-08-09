@@ -4,12 +4,10 @@ import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Switch from "@material-ui/core/Switch";
-function TodoList() {
+function TodoList(props) {
     const [todos, setTodos] = useState([]);
-    const updateTodo = (props) => {
-        console.log(props);
-        const { todo } = props;
-        //todosRef.child(todo.id).set({ ...todo, done: !todo.done })
+    const updateTodo = (todo) => {
+        todosRef.child(todo.id).set({ ...todo, done: !todo.done })
     }
     useEffect(() => {
         todosRef.on('value', (snapshot) => {
@@ -29,16 +27,15 @@ function TodoList() {
         <>
             {todos.map((todo, i) => (
                 <React.Fragment key={todo.id}>
-                    <div>
-                        <Switch
-                            edge="end" checked={todo.done} onChange={updateTodo}
-                            inputProps={{ "aria-labelledby": "switch-list-label-bluetooth" }}
-                        />
-                        1{todo.done}2  {todo.task} &nbsp; 
-                        <IconButton variant="contained" color="secondary" onClick={e=>todosRef.child(todo.id).remove()}>
+                    <div className="Todo">
+                        <div className="checkbox-content">
+                            <Switch size="small" checked={todo.done} onChange={() => { updateTodo(todo) }} />
+                            {todo.task}
+                        </div>
+                        <IconButton variant="contained" color="secondary" onClick={e => todosRef.child(todo.id).remove()}>
                             <DeleteIcon fontSize="small" />
                         </IconButton>
-                        </div>
+                    </div>
                     {i < todos.length - 1 && <Divider />}
                 </React.Fragment>
             ))}

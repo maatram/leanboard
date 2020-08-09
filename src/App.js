@@ -1,5 +1,8 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
+import Container from "@material-ui/core/Container";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
 import './App.css';
 import TodoForm from './TodoForm';
 import TodoList from './TodoList';
@@ -14,8 +17,16 @@ function App() {
       }}>
         Chrome Tab
         </Button>
-      <TodoForm/>
-      <TodoList/>
+      <div className="App">
+        <Container className="container" maxWidth="sm">
+          <Card>
+            <CardContent>
+              <TodoForm />
+              <TodoList />
+            </CardContent>
+          </Card>
+        </Container>
+      </div>
     </div>
   );
 }
