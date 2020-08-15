@@ -51,3 +51,6 @@
   display: inline-flex;
   align-items: center;
 }
+.SignIn .Input-Form{
+  margin-bottom: 20px;
+}
