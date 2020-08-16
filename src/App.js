@@ -6,6 +6,7 @@ import CardContent from "@material-ui/core/CardContent";
 import TodoForm from './TodoForm';
 import TodoList from './TodoList';
 import SignIn from './SignIn';
+import SignUp from './SignUp';
 import './App.css';
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
 
   return (
     <div className="App">
+      <SignUp />
       <SignIn />
       <Container className="container" maxWidth="sm">
         <Card>
