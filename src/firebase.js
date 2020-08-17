@@ -1,4 +1,4 @@
-import firebase from 'firebase/app';
+import * as firebase from 'firebase'
 import "firebase/database";
 import "firebase/auth";
 
@@ -18,11 +18,32 @@ firebase.initializeApp(firebaseConfig);
 const databaseRef = firebase.database().ref();
 export const todosRef = databaseRef.child("todos");
 export const auth = firebase.auth();
+export const firestore = firebase.firestore();
 // firebase google setup
 export const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({
     promt: "select_account"
 });
+export const createUserProfile = async (authUser) => {
+    if(!authUser) return;
+    const userReference = firestore.doc(`users/${authUser.uid}`);
+    const snapUser = await userReference.get();
+    if (!snapUser.exists) {
+        const { displayName, email } = authUser;
+        const createdAt = new Date();
+        try {
+            await userReference.set({
+                displayName,
+                email,
+                createdAt
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    console.log('userReference', userReference);
+    return userReference;
+}
 export const signInWithGoogle = () => {
     auth.signInWithPopup(provider);
 }

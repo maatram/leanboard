@@ -10,7 +10,7 @@ function SignIn() {
 
     }
     return (
-        <Container className="container SignIn" maxWidth="xs">
+        <Container className="container" maxWidth="xs">
             <form noValidate autoComplete="off" className="Input-Form" onSubmit={onSubmit}>
                 <TextField
                     label="Email"
@@ -26,10 +26,10 @@ function SignIn() {
                     margin="normal"
                 />
                 <Button type="submit" fullWidth variant="contained" color="primary"> Sign In </Button>
+                <Button type="button" fullWidth variant="contained" onClick={signInWithGoogle} color="secondary">
+                    Sign In with google
+                </Button>
             </form>
-            <Button type="button" fullWidth variant="contained" onClick={signInWithGoogle} color="secondary">
-                Sign In with google
-        </Button>
         </Container>
     )
 }
