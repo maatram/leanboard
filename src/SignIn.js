@@ -6,8 +6,17 @@ import Container from "@material-ui/core/Container";
 
 function SignIn() {
     const [user, setUser] = useState({ email: '', password: '' });
-    const onSubmit = () => {
-
+    const { email, password } = user;
+    const onChange = (e) => {
+        const { name, value } = e.target;
+        setUser({ ...user, [name]: value });
+    }
+    const onSubmit = async (e) => {
+        e.preventDefault();
+        const { email, password } = user;
+        await auth.signInWithEmailAndPassword(email, password).then(res => {
+            console.log('res', res);
+        })
     }
     return (
         <Container className="container" maxWidth="xs">
@@ -17,6 +26,8 @@ function SignIn() {
                     variant="outlined"
                     fullWidth
                     name="email"
+                    onChange={onChange}
+                    value={email}
                 />
                 <TextField
                     label="Password"
@@ -24,6 +35,9 @@ function SignIn() {
                     fullWidth
                     name="password"
                     margin="normal"
+                    type="password"
+                    onChange={onChange}
+                    value={password}
                 />
                 <Button type="submit" fullWidth variant="contained" color="primary"> Sign In </Button>
                 <Button type="button" fullWidth variant="contained" onClick={signInWithGoogle} color="secondary">
