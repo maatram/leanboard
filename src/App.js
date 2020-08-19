@@ -7,13 +7,22 @@ import TodoForm from './TodoForm';
 import TodoList from './TodoList';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
+import UserInfo from './UserInfo';
 import './App.css';
+import { auth } from './firebase';
 
 function App() {
   const [currentUser, setCurrentUser] = useState();
-
+  useEffect(() => {
+    auth.onAuthStateChanged(async authUser => {
+      if (authUser) {
+        setCurrentUser(authUser);
+      }
+    })
+  }, [])
   return (
     <div className="App">
+      <UserInfo currentUser={currentUser} />
       <SignUp />
       <SignIn />
       <Container className="container" maxWidth="sm">
