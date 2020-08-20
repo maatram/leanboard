@@ -14,15 +14,17 @@ function TodoList(props) {
             let items = snapshot.val();
             let newState = [];
             for (let item in items) {
-                newState.push({
-                    id: item,
-                    task: items[item].task,
-                    done: items[item].done
-                });
+                if (items[item].author === props.currentUser ?.email) {
+                    newState.push({
+                        id: item,
+                        task: items[item].task,
+                        done: items[item].done
+                    });
+                }
             }
             setTodos(newState)
         });
-    }, [])
+    }, [props])
     return (
         <>
             {todos.map((todo, i) => (

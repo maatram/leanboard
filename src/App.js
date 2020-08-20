@@ -28,8 +28,8 @@ function App() {
       <Container className="container" maxWidth="sm">
         <Card>
           <CardContent>
-            <TodoForm />
-            <TodoList />
+            <TodoForm currentUser={currentUser} />
+            <TodoList currentUser={currentUser} />
           </CardContent>
         </Card>
       </Container>

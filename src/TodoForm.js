@@ -3,13 +3,14 @@ import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import { todosRef } from './firebase';
 
-function TodoForm() {
+function TodoForm(props) {
     const [value, setValue] = useState('');
     const createTodo = (e) => {
         e.preventDefault();
         const item = {
             task: value,
-            done: false
+            done: false,
+            author: props.currentUser.email
         }
         todosRef.push(item);
         setValue('');
