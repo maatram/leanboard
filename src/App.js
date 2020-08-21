@@ -23,16 +23,22 @@ function App() {
   return (
     <div className="App">
       <UserInfo currentUser={currentUser} />
-      <SignUp />
-      <SignIn />
-      <Container className="container" maxWidth="sm">
-        <Card>
-          <CardContent>
-            <TodoForm currentUser={currentUser} />
-            <TodoList currentUser={currentUser} />
-          </CardContent>
-        </Card>
-      </Container>
+      {!currentUser ?
+        <div>
+          <SignUp />
+          <SignIn />
+        </div>
+        : null}
+      {currentUser ?
+        <Container className="container" maxWidth="sm">
+          <Card>
+            <CardContent>
+              <TodoForm currentUser={currentUser} />
+              <TodoList currentUser={currentUser} />
+            </CardContent>
+          </Card>
+        </Container>
+        : null}
     </div>
   );
 }
