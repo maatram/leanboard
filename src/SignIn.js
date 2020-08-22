@@ -3,8 +3,9 @@ import { auth, signInWithGoogle } from "./firebase";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
+import Link from '@material-ui/core/Link';
 
-function SignIn() {
+function SignIn(props) {
     const [user, setUser] = useState({ email: '', password: '' });
     const { email, password } = user;
     const onChange = (e) => {
@@ -17,6 +18,10 @@ function SignIn() {
         await auth.signInWithEmailAndPassword(email, password).then(res => {
             console.log('res', res);
         })
+    }
+    const onClick = (e) => {
+        props.signInState = false;
+        e.preventDefault();
     }
     return (
         <Container className="container" maxWidth="xs">
@@ -40,9 +45,13 @@ function SignIn() {
                     value={password}
                 />
                 <Button type="submit" fullWidth variant="contained" color="primary"> Sign In </Button>
+                <p>or</p>
                 <Button type="button" fullWidth variant="contained" onClick={signInWithGoogle} color="secondary">
-                    Sign In with google
+                    Login with google
                 </Button>
+                <p>
+                    If you dont have an account, <Link onClick={onClick}>SignUp here</Link>
+                </p>
             </form>
         </Container>
     )

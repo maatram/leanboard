@@ -10,23 +10,28 @@ import SignUp from './SignUp';
 import UserInfo from './UserInfo';
 import './App.css';
 import { auth } from './firebase';
+import { isNullOrUndefined } from 'util';
 
 function App() {
   const [currentUser, setCurrentUser] = useState();
+  const signInState = true;
   useEffect(() => {
     auth.onAuthStateChanged(async authUser => {
       if (authUser) {
         setCurrentUser(authUser);
+      } else {
+        localStorage.removeItem('FIREBASE_TOKEN');
       }
     })
   }, [])
   return (
     <div className="App">
       <UserInfo currentUser={currentUser} />
-      {!currentUser ?
+      {isNullOrUndefined(currentUser) ?
         <div>
+          {signInState ? <SignIn signInState={signInState} /> :
           <SignUp />
-          <SignIn />
+          }
         </div>
         : null}
       {currentUser ?

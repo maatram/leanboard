@@ -7,7 +7,7 @@ import Switch from "@material-ui/core/Switch";
 function TodoList(props) {
     const [todos, setTodos] = useState([]);
     const updateTodo = (todo) => {
-        todosRef.child(todo.id).set({ ...todo, done: !todo.done })
+        todosRef.child(todo.id).set({ ...todo, done: !todo.done, author: props.currentUser ?.email})
     }
     useEffect(() => {
         todosRef.on('value', (snapshot) => {
