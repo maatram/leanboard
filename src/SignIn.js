@@ -20,37 +20,21 @@ function SignIn(props) {
         })
     }
     const onClick = (e) => {
-        props.signInState = false;
         e.preventDefault();
+        props.onSignInStateChange(false);
     }
     return (
         <Container className="container" maxWidth="xs">
             <form noValidate autoComplete="off" className="Input-Form" onSubmit={onSubmit}>
-                <TextField
-                    label="Email"
-                    variant="outlined"
-                    fullWidth
-                    name="email"
-                    onChange={onChange}
-                    value={email}
-                />
-                <TextField
-                    label="Password"
-                    variant="outlined"
-                    fullWidth
-                    name="password"
-                    margin="normal"
-                    type="password"
-                    onChange={onChange}
-                    value={password}
-                />
+                <TextField label="Email" variant="outlined" fullWidth name="email" onChange={onChange} value={email} />
+                <TextField label="Password" variant="outlined" fullWidth name="password" margin="normal" type="password" onChange={onChange} value={password} />
                 <Button type="submit" fullWidth variant="contained" color="primary"> Sign In </Button>
                 <p>or</p>
                 <Button type="button" fullWidth variant="contained" onClick={signInWithGoogle} color="secondary">
                     Login with google
                 </Button>
                 <p>
-                    If you dont have an account, <Link onClick={onClick}>SignUp here</Link>
+                    Dont have an account? <Link className="click-here" onClick={onClick}>SignUp</Link>
                 </p>
             </form>
         </Container>

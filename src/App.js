@@ -14,8 +14,12 @@ import { isNullOrUndefined } from 'util';
 
 function App() {
   const [currentUser, setCurrentUser] = useState();
-  const signInState = true;
+  const [signInState, setSignInState] = useState();
+  const onChange = (e) => {
+    setSignInState(e);
+  }
   useEffect(() => {
+    setSignInState(true);
     auth.onAuthStateChanged(async authUser => {
       if (authUser) {
         setCurrentUser(authUser);
@@ -26,16 +30,18 @@ function App() {
   }, [])
   return (
     <div className="App">
-      <UserInfo currentUser={currentUser} />
+    <h3>Lean Board</h3>
       {isNullOrUndefined(currentUser) ?
         <div>
-          {signInState ? <SignIn signInState={signInState} /> :
-          <SignUp />
+          {
+            signInState ? <SignIn signInState={signInState} onSignInStateChange={onChange} /> :
+              <SignUp signInState={signInState} onSignInStateChange={onChange} />
           }
         </div>
         : null}
       {currentUser ?
         <Container className="container" maxWidth="sm">
+          <UserInfo currentUser={currentUser} />
           <Card>
             <CardContent>
               <TodoForm currentUser={currentUser} />

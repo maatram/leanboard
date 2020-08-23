@@ -3,9 +3,10 @@ import { auth, signInWithGoogle, createUserProfile } from "./firebase";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
+import Link from '@material-ui/core/Link';
 import { isNullOrUndefined } from 'util';
 
-function SignUp() {
+function SignUp(props) {
     const [user, setUser] = useState({ email: '', password: '' });
     const { email, password } = user;
     const onChange = (e) => {
@@ -23,14 +24,24 @@ function SignUp() {
         } else {
             alert('Please check your email and password');
         }
-
+    }
+    const onClick = (e) => {
+        e.preventDefault();
+        props.onSignInStateChange(true);
     }
     return (
-        <Container className="container SignUp" maxWidth="xs">
+        <Container className="container" maxWidth="xs">
             <form noValidate autoComplete="off" className="Input-Form" onSubmit={onSubmit}>
-                <TextField label="Email" onChange={onChange} name="email" variant="outlined" fullWidth margin="normal" value={email} />
+                <TextField label="Email" onChange={onChange} name="email" variant="outlined" fullWidth value={email} />
                 <TextField label="Password" onChange={onChange} name="password" variant="outlined" fullWidth margin="normal" type="password" value={password} />
                 <Button type="submit" fullWidth variant="contained" color="primary"> Sign Up </Button>
+                <p>or</p>
+                <Button type="button" fullWidth variant="contained" onClick={signInWithGoogle} color="secondary">
+                    Login with google
+                </Button>
+                <p>
+                    Already have an account? <Link className="click-here" onClick={onClick}>SignIn</Link>
+                </p>
             </form>
         </Container>
     )
