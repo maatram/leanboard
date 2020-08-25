@@ -24,13 +24,13 @@ function App() {
       if (authUser) {
         setCurrentUser(authUser);
       } else {
-        localStorage.removeItem('FIREBASE_TOKEN');
+        setCurrentUser(null);
       }
     })
   }, [])
   return (
     <div className="App">
-    <h3>Lean Board</h3>
+      <h3>Lean Board</h3>
       {isNullOrUndefined(currentUser) ?
         <div>
           {
