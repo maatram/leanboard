@@ -55,3 +55,7 @@
   display: inline-flex;
   align-items: center;
 }
+.toolBar {
+  display: flex;
+  justify-content: space-between;
+}

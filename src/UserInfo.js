@@ -7,18 +7,16 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+
 function UserInfo(props) {
     return (
         <>
             <AppBar position="static">
-                <Toolbar>
-                    <IconButton edge="start" color="inherit" aria-label="menu">
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography variant="h6">
+                <Toolbar className="toolBar">
+                    <Typography variant="body1" >
                         {props.currentUser ?.email}
                     </Typography>
-                    <Button className="logout click-here" onClick={(e) => auth.signOut()}>Logout</Button>
+                    <Button size="small" variant="contained" color="default" className="logout click-here" onClick={(e) => auth.signOut()}>Logout</Button>
                 </Toolbar>
             </AppBar>
         </>
