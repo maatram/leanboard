@@ -4,8 +4,9 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import Link from '@material-ui/core/Link';
-
+import { getErrorMessage } from "./AppUtils";
 function SignIn(props) {
+    const [error, setError] = useState('');
     const [user, setUser] = useState({ email: '', password: '' });
     const { email, password } = user;
     const onChange = (e) => {
@@ -15,9 +16,9 @@ function SignIn(props) {
     const onSubmit = async (e) => {
         e.preventDefault();
         const { email, password } = user;
-        await auth.signInWithEmailAndPassword(email, password).then(res => {
-            console.log('res', res);
-        })
+        await auth.signInWithEmailAndPassword(email, password)
+            .then(res => { console.log('res', res); })
+            .catch(error => { setError(getErrorMessage(error.code)) })
     }
     const onClick = (e) => {
         e.preventDefault();
@@ -37,6 +38,7 @@ function SignIn(props) {
                     Dont have an account? <Link className="click-here" onClick={onClick}>SignUp</Link>
                 </p>
             </form>
+            {error && <p style={{ 'color': 'red', 'fontSize': '20px' }}>{error}</p>}
         </Container>
     )
 }
