@@ -5,8 +5,10 @@ import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import Link from '@material-ui/core/Link';
 import { isNullOrUndefined } from 'util';
+import { getErrorMessage } from "./AppUtils";
 
 function SignUp(props) {
+    const [error, setError] = useState('');
     const [user, setUser] = useState({ email: '', password: '' });
     const { email, password } = user;
     const onChange = (e) => {
@@ -16,11 +18,9 @@ function SignUp(props) {
     const onSubmit = async (e) => {
         e.preventDefault();
         if (!isNullOrUndefined(email && password)) {
-            const { user } = await auth.createUserWithEmailAndPassword(email, password)
+            await auth.createUserWithEmailAndPassword(email, password)
                 .then()
-                .catch(error => {
-                    alert(error.message);
-                });
+                .catch(error => { setError(getErrorMessage(error.code)) })
         } else {
             alert('Please check your email and password');
         }
@@ -43,6 +43,7 @@ function SignUp(props) {
                     Already have an account? <Link className="click-here" onClick={onClick}>SignIn</Link>
                 </p>
             </form>
+            {error && <p style={{ 'color': 'red', 'fontSize': '20px' }}>{error}</p>}
         </Container>
     )
 }

@@ -11,6 +11,7 @@ import UserInfo from './UserInfo';
 import './App.css';
 import { auth } from './firebase';
 import { isNullOrUndefined } from 'util';
+import { getErrorMessage } from "./AppUtils";
 
 function App() {
   const [currentUser, setCurrentUser] = useState();

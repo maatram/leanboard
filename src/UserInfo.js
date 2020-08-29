@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 function UserInfo(props) {
     return (
@@ -14,7 +15,7 @@ function UserInfo(props) {
             <AppBar position="static">
                 <Toolbar className="toolBar">
                     <Typography variant="body1" >
-                        {props.currentUser ?.email}
+                        <div><AccountCircleIcon /> {props.currentUser ?.email}</div>
                     </Typography>
                     <Button size="small" variant="contained" color="default" className="logout click-here" onClick={(e) => auth.signOut()}>Logout</Button>
                 </Toolbar>
