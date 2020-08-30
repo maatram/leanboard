@@ -15,7 +15,7 @@ function UserInfo(props) {
             <AppBar position="static">
                 <Toolbar className="toolBar">
                     <Typography variant="body1" >
-                        <div><AccountCircleIcon /> {props.currentUser ?.email}</div>
+                        <AccountCircleIcon /> {props.currentUser ?.email}
                     </Typography>
                     <Button size="small" variant="contained" color="default" className="logout click-here" onClick={(e) => auth.signOut()}>Logout</Button>
                 </Toolbar>

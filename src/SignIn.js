@@ -18,7 +18,7 @@ function SignIn(props) {
         e.preventDefault();
         const { email, password } = user;
         await auth.signInWithEmailAndPassword(email, password)
-            .then(res => { console.log('res', res); })
+            .then()
             .catch(error => { setError(getErrorMessage(error.code)) })
     }
     const onClick = (e) => {
