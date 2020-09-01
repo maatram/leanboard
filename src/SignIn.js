@@ -5,9 +5,15 @@ import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import Link from '@material-ui/core/Link';
 import { getErrorMessage } from "./AppUtils";
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 function SignIn(props) {
     const [error, setError] = useState('');
+    const [open, setOpen] = useState(false);
     const [user, setUser] = useState({ email: '', password: '' });
     const { email, password } = user;
     const onChange = (e) => {
@@ -19,11 +25,14 @@ function SignIn(props) {
         const { email, password } = user;
         await auth.signInWithEmailAndPassword(email, password)
             .then()
-            .catch(error => { setError(getErrorMessage(error.code)) })
+            .catch(error => { setError(getErrorMessage(error.code)); setOpen(true); })
     }
     const onClick = (e) => {
         e.preventDefault();
         props.onSignInStateChange(false);
+    }
+    const handleClose = () => {
+        setOpen(false);
     }
     return (
         <Container className="container" maxWidth="xs">
@@ -39,7 +48,11 @@ function SignIn(props) {
                     Dont have an account? <Link className="click-here" onClick={onClick}>SignUp</Link>
                 </p>
             </form>
-            {error && <p style={{ 'color': 'red', 'fontSize': '20px' }}>{error}</p>}
+            {
+                error && <Snackbar open={open} anchorOrigin={{ vertical: 'top', horizontal: 'center' }} autoHideDuration={5000} onClose={handleClose}>
+                    <Alert severity="error" onClose={handleClose}>{error}</Alert>
+                </Snackbar>
+            }
         </Container>
     )
 }

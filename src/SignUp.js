@@ -6,9 +6,15 @@ import Container from "@material-ui/core/Container";
 import Link from '@material-ui/core/Link';
 import { isNullOrUndefined } from 'util';
 import { getErrorMessage } from "./AppUtils";
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 function SignUp(props) {
     const [error, setError] = useState('');
+    const [open, setOpen] = useState(false);
     const [user, setUser] = useState({ email: '', password: '' });
     const { email, password } = user;
     const onChange = (e) => {
@@ -20,7 +26,7 @@ function SignUp(props) {
         if (!isNullOrUndefined(email && password)) {
             await auth.createUserWithEmailAndPassword(email, password)
                 .then()
-                .catch(error => { setError(getErrorMessage(error.code)) })
+                .catch(error => { setError(getErrorMessage(error.code)); setOpen(true); })
         } else {
             alert('Please check your email and password');
         }
@@ -28,6 +34,9 @@ function SignUp(props) {
     const onClick = (e) => {
         e.preventDefault();
         props.onSignInStateChange(true);
+    }
+    const handleClose = () => {
+        setOpen(false);
     }
     return (
         <Container className="container" maxWidth="xs">
@@ -43,7 +52,11 @@ function SignUp(props) {
                     Already have an account? <Link className="click-here" onClick={onClick}>SignIn</Link>
                 </p>
             </form>
-            {error && <p style={{ 'color': 'red', 'fontSize': '20px' }}>{error}</p>}
+            {
+                error && <Snackbar open={open} anchorOrigin={{ vertical: 'top', horizontal: 'center' }} autoHideDuration={5000} onClose={handleClose}>
+                    <Alert severity="error" onClose={handleClose}>{error}</Alert>
+                </Snackbar>
+            }
         </Container>
     )
 }
