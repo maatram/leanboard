@@ -24,7 +24,7 @@ function SignIn(props) {
         e.preventDefault();
         const { email, password } = user;
         await auth.signInWithEmailAndPassword(email, password)
-            .then()
+            .then(localStorage.setItem('isLoggedIn', true))
             .catch(error => { setError(getErrorMessage(error.code)); setOpen(true); })
     }
     const onClick = (e) => {

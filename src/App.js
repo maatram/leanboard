@@ -16,11 +16,13 @@ import { getErrorMessage } from "./AppUtils";
 function App() {
   const [currentUser, setCurrentUser] = useState();
   const [signInState, setSignInState] = useState();
+  const isLoggedIn = localStorage.getItem('isLoggedIn');
+  console.log(isLoggedIn);
   const onChange = (e) => {
     setSignInState(e);
   }
   useEffect(() => {
-    setSignInState(true);
+    setSignInState(isLoggedIn);
     auth.onAuthStateChanged(async authUser => {
       if (authUser) {
         setCurrentUser(authUser);

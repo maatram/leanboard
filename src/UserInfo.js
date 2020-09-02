@@ -9,6 +9,10 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
+function SignOut(){
+    localStorage.setItem('isLoggedIn', false)
+}
+
 function UserInfo(props) {
     return (
         <>
@@ -17,7 +21,7 @@ function UserInfo(props) {
                     <Typography variant="body1" >
                         <AccountCircleIcon /> {props.currentUser ?.email}
                     </Typography>
-                    <Button size="small" variant="contained" color="default" className="logout click-here" onClick={(e) => auth.signOut()}>Logout</Button>
+                    <Button size="small" variant="contained" color="default" className="logout click-here" onClick={(e) => { auth.signOut(); SignOut();}}>Logout</Button>
                 </Toolbar>
             </AppBar>
         </>

@@ -25,6 +25,8 @@ provider.setCustomParameters({
     promt: "select_account"
 });
 export const signInWithGoogle = () => {
-    auth.signInWithPopup(provider);
+    auth.signInWithPopup(provider)
+        .then(localStorage.setItem('isLoggedIn', true))
+        .catch()
 }
 export default firebase;
