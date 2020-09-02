@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "short_name": "React App",
+  "short_name": "Lean Board",
   "name": "Lean Board",
   "version": "1.0.0",
   "start_url": ".",
@@ -11,6 +11,9 @@
     "newtab": "index.html"
   },
   "permissions": [
-    "storage"
-  ]
+    "storage", "tabs",
+    "https://*/*",
+    "activeTab"
+  ],
+  "content_security_policy": "script-src 'self' 'unsafe-eval' https://cdn.firebase.com https://*.firebaseio.com https://apis.google.com; object-src 'self'; "
 }
