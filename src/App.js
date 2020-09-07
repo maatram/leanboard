@@ -17,7 +17,6 @@ function App() {
   const [currentUser, setCurrentUser] = useState();
   const [signInState, setSignInState] = useState();
   const isLoggedIn = localStorage.getItem('isLoggedIn');
-  console.log(isLoggedIn);
   const onChange = (e) => {
     setSignInState(e);
   }
@@ -34,7 +33,7 @@ function App() {
   return (
     <div className="App">
       <h3>Lean Board</h3>
-      {isNullOrUndefined(currentUser) ?
+      {isLoggedIn === 'false' && isNullOrUndefined(currentUser) ?
         <div>
           {
             signInState ? <SignIn signInState={signInState} onSignInStateChange={onChange} /> :
@@ -42,7 +41,7 @@ function App() {
           }
         </div>
         : null}
-      {currentUser ?
+      {isLoggedIn === 'true' && currentUser ?
         <Container className="container" maxWidth="sm">
           <UserInfo currentUser={currentUser} />
           <Card>
